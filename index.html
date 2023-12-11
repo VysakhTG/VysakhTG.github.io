@@ -3,26 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Special Message</title>
+    <title>A Special Message</title>
     <style>
         body {
-            background-color: #f9f3f4;
+            background-color: #fdf7f9;
             text-align: center;
-            font-family: 'Georgia', serif;
+            font-family: 'Courier New', monospace;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
         }
 
         h1 {
-            color: #ed6b86; 
-            text-shadow: 2px 2px 4px #c24d63; 
-            font-size: 2em;
-            margin-bottom: 20px;
-            animation: pulse 2s infinite; 
+            color: #d93367; 
+            font-size: 2.5em;
+            margin-bottom: 10px;
         }
 
         p {
-            color: #4f4f4f;
+            color: #333;
             font-style: italic;
             font-size: 18px;
+            max-width: 600px;
+        }
+
+        .ring {
+            width: 150px;
+            margin-top: 20px;
         }
 
         @keyframes pulse {
@@ -39,7 +49,8 @@
     </style>
 </head>
 <body>
-    <h1>My love for you is like a blooming rose...</h1>
-    <p>It grows more beautiful with each passing moment. You are the essence of my happiness.</p>
+    <h1>Will you make me the happiest person?</h1>
+    <p>Every moment with you feels like a dream. Your love is my greatest treasure.</p>
+    <img src="ring.png" alt="Engagement Ring" class="ring">
 </body>
 </html>
