@@ -9,6 +9,43 @@
             margin: 0;
             overflow: hidden;
             background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .sun {
+            width: 100px;
+            height: 100px;
+            background-color: yellow;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: sunRotate 20s linear infinite;
+        }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>A Special Message</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
         }
 
         .container {
@@ -105,3 +142,55 @@
     <p>Your presence brings warmth to my heart, and your love is the most beautiful part of my life.</p>
 </body>
 </html>
+￼Enter
+        .earth {
+            width: 40px;
+            height: 40px;
+            background-color: #4682B4;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 70%;
+            transform-origin: 0% 50%;
+            animation: earthOrbit 10s linear infinite;
+        }
+
+        .moon {
+            width: 15px;
+            height: 15px;
+            background-color: #d3d3d3;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 120%;
+            transform-origin: 0% 50%;
+            animation: moonOrbit 2s linear infinite;
+        }
+
+        @keyframes sunRotate {
+      0% {
+                transform: rotate(0deg) translate(-50%, -50%);
+            }
+            100% {
+                transform: rotate(360deg) translate(-50%, -50%);
+            }
+        }
+
+        @keyframes earthOrbit {
+            0% {
+                transform: rotate(0deg) translate(-50%, -50%);
+            }
+            100% {
+                transform: rotate(360deg) translate(-50%, -50%);
+            }
+        }
+
+        @keyframes moonOrbit {
+            0% {
+                transform: rotate(0deg) translate(-50%, -50%);
+            }
+            100% {
+                transform: rotate(360deg) translate(-50%, -50%);
+            }
+        }
+
