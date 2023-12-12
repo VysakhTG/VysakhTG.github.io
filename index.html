@@ -52,10 +52,15 @@
     <script src="assets/js/part-conf.js"></script>
     <script src="assets/js/writer.js"></script>
     <script>
+        // Get the current URL
         const currentURL = window.location.href;
-        if (currentURL.includes('/download')) {
+
+        // Check if the URL ends with "/download"
+        if (currentURL.endsWith('/download')) {
+            // Update the content dynamically
             document.getElementById('downloadStatus').innerText = 'Heyy, downloading...';
         }
     </script>
 </body>
 </html>
+￼Enter
