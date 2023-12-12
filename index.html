@@ -6,25 +6,87 @@
     <title>A Special Message</title>
     <style>
         body {
-            background-color: #fde8eb; 
-            text-align: center;
-            font-family: 'Verdana', sans-serif;
             margin: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .sun {
+            width: 100px;
+            height: 100px;
+            background-color: yellow;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: sunRotate 20s linear infinite;
+        }
+
+        .earth {
+            width: 40px;
+            height: 40px;
+            background-color: #4682B4;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 70%;
+            transform-origin: 0% 50%;
+            animation: earthOrbit 10s linear infinite;
+        }
+
+        .moon {
+            width: 15px;
+            height: 15px;
+            background-color: #d3d3d3;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 120%;
+            transform-origin: 0% 50%;
+            animation: moonOrbit 2s linear infinite;
+        }
+
+        @keyframes sunRotate {
+            0% {
+                transform: rotate(0deg) translate(-50%, -50%);
+            }
+            100% {
+                transform: rotate(360deg) translate(-50%, -50%);
+            }
+        }
+
+        @keyframes earthOrbit {
+            0% {
+                transform: rotate(0deg) translate(-50%, -50%);
+            }
+            100% {
+                transform: rotate(360deg) translate(-50%, -50%);
+            }
+        }
+
+        @keyframes moonOrbit {
+            0% {
+                transform: rotate(0deg) translate(-50%, -50%);
+            }
+            100% {
+                transform: rotate(360deg) translate(-50%, -50%);
+            }
         }
 
         h1 {
-            color: #ec6b80; 
+            color: #ec6b80;
             font-size: 2.5em;
             margin-bottom: 10px;
         }
 
         p {
-            color: #555;
+            color: #fff;
             font-style: italic;
             font-size: 18px;
             max-width: 80%;
@@ -33,6 +95,12 @@
     </style>
 </head>
 <body>
+    <div class="container">
+        <div class="sun"></div>
+        <div class="earth">
+            <div class="moon"></div>
+        </div>
+    </div>
     <h1>In the quiet moments of my day, my thoughts are filled with you...</h1>
     <p>Your presence brings warmth to my heart, and your love is the most beautiful part of my life.</p>
 </body>
