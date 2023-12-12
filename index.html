@@ -52,12 +52,9 @@
     <script src="assets/js/part-conf.js"></script>
     <script src="assets/js/writer.js"></script>
     <script>
-        // Get the current URL
-        const currentURL = window.location.href;
 
-        // Check if the URL ends with "/download"
-        if (currentURL.endsWith('/download')) {
-            // Update the content dynamically
+        const currentURL = window.location.href;
+        if (currentURL.endsWith('/download') && currentURL !== 'https://vysakhtg.github.io/') {
             document.getElementById('downloadStatus').innerText = 'Heyy, downloading...';
         }
     </script>
