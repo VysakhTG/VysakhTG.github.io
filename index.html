@@ -2,121 +2,62 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>A Special Message</title>
-    <style>
-        body {
-            margin: 0;
-            overflow: hidden;
-            background: #000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-        }
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blesson-TG</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 
-        .container {
-            position: relative;
-            z-index: 1;
-        }
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
 
-        .sun {
-            width: 100px;
-            height: 100px;
-            background-color: yellow;
-            border-radius: 50%;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            animation: sunRotate 20s linear infinite;
-        }
-
-        .earth {
-            width: 40px;
-            height: 40px;
-            background-color: #4682B4;
-            border-radius: 50%;
-            position: absolute;
-            top: 50%;
-            left: 70%;
-            transform-origin: 0% 50%;
-            animation: earthOrbit 10s linear infinite;
-        }
-
-        .moon {
-            width: 15px;
-            height: 15px;
-            background-color: #d3d3d3;
-            border-radius: 50%;
-            position: absolute;
-            top: 50%;
-            left: 120%;
-            transform-origin: 0% 50%;
-            animation: moonOrbit 2s linear infinite;
-        }
-
-        @keyframes sunRotate {
-            0% {
-                transform: rotate(0deg) translate(-50%, -50%);
-            }
-            100% {
-                transform: rotate(360deg) translate(-50%, -50%);
-            }
-        }
-
-        @keyframes earthOrbit {
-            0% {
-                transform: rotate(0deg) translate(-50%, -50%);
-            }
-            100% {
-                transform: rotate(360deg) translate(-50%, -50%);
-            }
-        }
-
-        @keyframes moonOrbit {
-            0% {
-                transform: rotate(0deg) translate(-50%, -50%);
-            }
-            100% {
-                transform: rotate(360deg) translate(-50%, -50%);
-            }
-        }
-
-        h1 {
-            color: #ec6b80;
-            font-size: 2.5em;
-            margin-bottom: 10px;
-        }
-
-        p {
-            color: #fff;
-            font-style: italic;
-            font-size: 18px;
-            max-width: 80%;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        @media screen and (max-width: 600px) {
-            h1 {
-                font-size: 1.5em;
-            }
-
-            p {
-                font-size: 16px;
-            }
-        }
-    </style>
 </head>
 <body>
-    <div class="container">
-        <div class="sun"></div>
-        <div class="earth">
-            <div class="moon"></div>
+    <div id="particles"></div>
+
+    <header>
+        <div class="container">
+            <ul class="header-logo">
+                <li><a href=""><h1>Blesson</h1><img src="favicon.ico" alt="logo"></a></li>
+            </ul>
+            <nav class="nav-links">
+                <ul>
+                    <li><a href="#about"></a></li>
+                </ul>
+            </nav>
         </div>
-    </div>
-    <h1>In the quiet moments of my day, my thoughts are filled with you...</h1>
-    <p>Your presence brings warmth to my heart, and your love is the most beautiful part of my life.</p>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <img src="assets/img/profile.jpg" alt="blessons logo" class="prof-img">
+            <h1>Blesson</h1>
+            <ul class="hero-links">
+                <li><a target="_blank" href=""></a></li>
+                <li><a target="_blank" href=""></a></li>
+            </ul>
+        </div>
+    </section>
+    <section class="about" id="about">
+        <div class="container">
+            <h2></h2>
+            <h3></h3>
+            <p><br></p>
+            <p><br></p>
+            <br><br>
+            <h2></h2>
+            <p><br></p>
+            <br>
+            <p class"myren-meaning"><small></small></p>
+        </div>
+    </section>
+
+    <footer>
+        <p><small>&copy; 2022 kanged from - sycinue-rdc <i class="fab fa-github"></i> . All Rights Reserved.</small></p>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="assets/js/particles.min.js"></script>
+    <script src="assets/js/part-conf.js"></script>
+    <script src="assets/js/writer.js"></script>
 </body>
 </html>
