@@ -1,96 +1,58 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Segoe UI", sans-serif;
-}
-
 body {
-  background: radial-gradient(circle at top, #0f2027, #000);
-  color: #fff;
-  height: 100vh;
+  margin: 0;
+  background: #000;
+  color: #0f0;
+  font-family: monospace;
 }
 
-.app {
-  display: flex;
-  height: 100vh;
-}
-
-/* Sidebar */
 .sidebar {
-  width: 220px;
-  background: rgba(255,255,255,0.05);
-  backdrop-filter: blur(12px);
+  width: 200px;
+  height: 100vh;
+  position: fixed;
+  background: #111;
   padding: 20px;
-  border-right: 1px solid #222;
-}
-
-.sidebar h2 {
-  margin-bottom: 20px;
 }
 
 .sidebar button {
   width: 100%;
   margin-bottom: 10px;
   padding: 10px;
-  background: #111;
-  color: #0ff;
-  border: 1px solid #0ff;
+  background: #000;
+  color: #0f0;
+  border: 1px solid #0f0;
   cursor: pointer;
 }
 
-.sidebar button:hover {
-  background: #0ff;
-  color: #000;
-}
-
-/* Content */
 .content {
-  flex: 1;
-  padding: 30px;
-}
-
-.tool {
-  display: none;
-}
-
-.tool.active {
-  display: block;
+  margin-left: 220px;
+  padding: 20px;
 }
 
 textarea {
   width: 100%;
   height: 200px;
-  background: #0b0b0b;
+  background: #000;
   color: #0f0;
-  border: 1px solid #333;
-  padding: 15px;
+  border: 1px solid #0f0;
+  padding: 10px;
 }
 
-.action {
-  margin-top: 10px;
-  padding: 10px 20px;
-  background: #0ff;
-  border: none;
-  cursor: pointer;
-}
-
-/* Terminal */
-.terminal {
+pre {
   background: #000;
   border: 1px solid #0f0;
-  padding: 15px;
+  padding: 10px;
+  height: 300px;
+  overflow-y: auto;
 }
 
-.terminal .output {
-  color: #0f0;
-  margin-bottom: 10px;
-}
-
-.terminal input {
+input {
   width: 100%;
+  padding: 10px;
   background: #000;
   color: #0f0;
-  border: none;
-  outline: none;
+  border: 1px solid #0f0;
+}
+
+.hidden {
+  display: none;
 }
