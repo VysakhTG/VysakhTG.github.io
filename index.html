@@ -1,67 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            background-color: black;
-            height: 100vh;
-            width: 100vw;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .bYR3I2_85a5034ad3ee4f215066 {
-            display: flex;
-            position: relative;
-        }
-
-        .fYcVX3_618fdd889c0717ed2ab6 {
-            left: -8%;
-            pointer-events: none;
-            position: absolute;
-            top: -7%;
-            width: 116%;
-            z-index: 9999;
-        }
-
-        .fmeGxb_229bedc9b07046bf61d1 {
-            border-radius: 50%;
-            height: 118px;
-            -o-object-fit: cover;
-            object-fit: cover;
-            width: 118px;
-        }
-
-        .i29W3G_ca56e6cc6120e82558ef {
-            bottom: 0;
-            height: 100vh;
-            left: 0;
-            -o-object-fit: cover;
-            object-fit: cover;
-            position: fixed;
-            right: 0;
-            top: 0;
-            width: 100vw;
-            z-index: -1;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Vysakh | Profile</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-    <video src="src/video.mp4" playsinline="" class="i29W3G_ca56e6cc6120e82558ef" loop="" autoplay></video>
-    <!-- <div class="bYR3I2_85a5034ad3ee4f215066"> -->
-        <!-- <img alt="" class="fYcVX3_618fdd889c0717ed2ab6" src="src/decoration.png" style="top: -7%;"> -->
-        <!-- <img src="src/avatar.webp" alt="" class="fmeGxb_229bedc9b07046bf61d1 false"> -->
-    <!-- </div> -->
+
+  <div class="profile-card">
+    <img src="https://i.pravatar.cc/300" alt="Profile">
+    <h1>Vysakh</h1>
+    <p>BCA Student • Developer • Internet Wizard</p>
+    <button id="secretBtn">👀</button>
+  </div>
+
+  <!-- Hidden Panel -->
+  <div id="adminPanel" class="hidden">
+    <h2>🚨 ACCESS GRANTED</h2>
+    <p>Welcome, chosen one.</p>
+
+    <button onclick="toggleDarkMode()">Toggle Dark Mode</button>
+    <button onclick="showSecret()">Reveal Secret</button>
+    <button onclick="downloadResume()">Download Resume</button>
+
+    <div id="secretText"></div>
+  </div>
+
+  <!-- Access Key Modal -->
+  <div id="keyModal" class="modal hidden">
+    <div class="modal-box">
+      <h3>Enter Access Key</h3>
+      <input type="password" id="accessKey" placeholder="Access key">
+      <button onclick="checkKey()">Unlock</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
