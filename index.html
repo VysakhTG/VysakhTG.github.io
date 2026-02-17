@@ -1,48 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
   <title>Tools Hub</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="app">
-  <aside class="sidebar">
-    <h2>⚙ Tools</h2>
-    <button onclick="showTool('paste')">PasteBin</button>
-    <button onclick="showTool('terminal')">CMD Panel</button>
-    <button onclick="showTool('files')">File Share</button>
-  </aside>
+<div class="sidebar">
+  <button onclick="show('paste')">PasteBin</button>
+  <button onclick="show('terminal')">Terminal</button>
+</div>
 
-  <main class="content">
-    <!-- PasteBin -->
-    <section id="paste" class="tool active">
-      <h1>📋 PasteBin</h1>
-      <textarea placeholder="Paste code or text here..."></textarea>
-      <button class="action">Save Paste</button>
-    </section>
+<div class="content">
 
-    <!-- Terminal -->
-    <section id="terminal" class="tool">
-      <h1>💻 CMD Panel</h1>
-      <div class="terminal">
-        <div class="output">user@tools:~$ welcome 👋</div>
-        <input type="text" placeholder="type a command...">
-      </div>
-    </section>
+<section id="paste">
+  <h2>📋 PasteBin</h2>
+  <textarea id="pasteInput" placeholder="Paste text or code..."></textarea>
+  <button onclick="createPaste()">Create Shareable Link</button>
+  <p id="pasteLink"></p>
+</section>
 
-    <!-- File Sharing -->
-    <section id="files" class="tool">
-      <h1>📂 File Sharing</h1>
-      <input type="file">
-      <button class="action">Upload</button>
+<section id="terminal" class="hidden">
+  <h2>💻 Terminal (JS)</h2>
+  <pre id="terminalOutput"></pre>
+  <input id="terminalInput" placeholder="try: 2+2 or console.log('hi')" />
+</section>
 
-      <div class="downloads">
-        <p>example.zip <button>Download</button></p>
-      </div>
-    </section>
-  </main>
 </div>
 
 <script src="script.js"></script>
