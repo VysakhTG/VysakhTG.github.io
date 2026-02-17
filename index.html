@@ -2,31 +2,49 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Vysakh | Profile</title>
+  <title>Tools Hub</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Hidden Panel -->
-  <div id="adminPanel" class="hidden">
-    <h2>🚨 ACCESS GRANTED</h2>
-    <p>Welcome, chosen one.</p>
 
-    <button onclick="toggleDarkMode()">Toggle Dark Mode</button>
-    <button onclick="showSecret()">Reveal Secret</button>
-    <button onclick="downloadResume()">Download Resume</button>
+<div class="app">
+  <aside class="sidebar">
+    <h2>⚙ Tools</h2>
+    <button onclick="showTool('paste')">PasteBin</button>
+    <button onclick="showTool('terminal')">CMD Panel</button>
+    <button onclick="showTool('files')">File Share</button>
+  </aside>
 
-    <div id="secretText"></div>
-  </div>
+  <main class="content">
+    <!-- PasteBin -->
+    <section id="paste" class="tool active">
+      <h1>📋 PasteBin</h1>
+      <textarea placeholder="Paste code or text here..."></textarea>
+      <button class="action">Save Paste</button>
+    </section>
 
-  <!-- Access Key Modal -->
-  <div id="keyModal" class="modal hidden">
-    <div class="modal-box">
-      <h3>Enter Access Key</h3>
-      <input type="password" id="accessKey" placeholder="Access key">
-      <button onclick="checkKey()">Unlock</button>
-    </div>
-  </div>
+    <!-- Terminal -->
+    <section id="terminal" class="tool">
+      <h1>💻 CMD Panel</h1>
+      <div class="terminal">
+        <div class="output">user@tools:~$ welcome 👋</div>
+        <input type="text" placeholder="type a command...">
+      </div>
+    </section>
 
-  <script src="script.js"></script>
+    <!-- File Sharing -->
+    <section id="files" class="tool">
+      <h1>📂 File Sharing</h1>
+      <input type="file">
+      <button class="action">Upload</button>
+
+      <div class="downloads">
+        <p>example.zip <button>Download</button></p>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
