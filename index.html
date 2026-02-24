@@ -3,149 +3,107 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anime Sakuga Vault</title>
+    <title>Anime Motion Vault</title>
     <style>
-        :root {
-            --primary-glow: #00f2ff;
-            --accent-color: #ff0055;
-            --bg-dark: #0f0f12;
-            --card-bg: rgba(255, 255, 255, 0.05);
-        }
-
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
         body {
-            background-color: var(--bg-dark);
-            color: white;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            background: #050505;
+            overflow-x: hidden;
+            font-family: 'Inter', sans-serif;
         }
 
-        h1 {
-            text-transform: uppercase;
-            letter-spacing: 5px;
-            margin-bottom: 40px;
-            text-shadow: 0 0 15px var(--primary-glow);
-            border-bottom: 2px solid var(--accent-color);
-        }
-
-        /* The Grid Layout */
-        .video-grid {
+        /* The Infinite Grid */
+        .anime-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 10px;
+            padding: 10px;
+            filter: grayscale(0.3); /* Stylized look */
+            transition: 0.5s;
+        }
+
+        .anime-container:hover {
+            filter: grayscale(0);
+        }
+
+        .video-box {
+            position: relative;
             width: 100%;
-            max-width: 1200px;
-        }
-
-        /* The Anime Card */
-        .anime-card {
-            background: var(--card-bg);
-            border-radius: 15px;
+            aspect-ratio: 16/9;
             overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-            backdrop-filter: blur(10px);
+            border-radius: 4px;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: transform 0.3s ease, z-index 0s;
         }
 
-        .anime-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            border-color: var(--primary-glow);
-            box-shadow: 0 0 30px rgba(0, 242, 255, 0.3);
-        }
-
-        /* Video Container to keep 16:9 ratio */
-        .video-wrapper {
-            position: relative;
-            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-            height: 0;
-            overflow: hidden;
-        }
-
-        .video-wrapper iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
+        /* Video fills the box and ignores clicks */
+        video {
             width: 100%;
             height: 100%;
-            border: none;
+            object-fit: cover;
+            pointer-events: none; /* Can't pause it by clicking! */
         }
 
-        .card-info {
-            padding: 15px;
-            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+        /* Hover Zoom Effect */
+        .video-box:hover {
+            transform: scale(1.1);
+            z-index: 10;
+            border: 2px solid #00f2ff;
+            box-shadow: 0 0 20px rgba(0, 242, 255, 0.6);
         }
 
-        .card-title {
-            margin: 0;
-            font-size: 1.1rem;
-            font-weight: bold;
-            color: var(--primary-glow);
-        }
-
-        .tag {
-            display: inline-block;
-            background: var(--accent-color);
-            font-size: 0.7rem;
+        /* Overlay text */
+        .label {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            background: rgba(0,0,0,0.7);
+            color: #00f2ff;
             padding: 2px 8px;
-            border-radius: 4px;
-            margin-top: 8px;
+            font-size: 10px;
             text-transform: uppercase;
+            letter-spacing: 2px;
+            opacity: 0;
+            transition: 0.3s;
         }
 
-        /* Ambient Background Glow */
-        .bg-glow {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            width: 400px;
-            height: 400px;
-            background: var(--accent-color);
-            filter: blur(150px);
-            opacity: 0.1;
-            z-index: -1;
-            border-radius: 50%;
+        .video-box:hover .label {
+            opacity: 1;
+        }
+
+        /* Custom Header */
+        header {
+            padding: 40px;
+            text-align: center;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 10px;
+            background: linear-gradient(to bottom, #111, transparent);
         }
     </style>
 </head>
 <body>
 
-    <div class="bg-glow"></div>
-    <h1>Sakuga Vault</h1>
+<header>Sakuga Flow</header>
 
-    <div class="video-grid">
-        <div class="anime-card">
-            <div class="video-wrapper">
-                <iframe src="https://www.youtube.com/embed/EJ2qEsl7YV4" allowfullscreen></iframe>
-            </div>
-            <div class="card-info">
-                <p class="card-title">Close Combat 3</p>
-                <span class="tag">Sakuga MAD</span>
-            </div>
-        </div>
-
-        <div class="anime-card">
-            <div class="video-wrapper">
-                <iframe src="https://www.youtube.com/embed/c1yEM5RyEis" allowfullscreen></iframe>
-            </div>
-            <div class="card-info">
-                <p class="card-title">Hand to Hand Fighting</p>
-                <span class="tag">Martial Arts</span>
-            </div>
-        </div>
-
-        <div class="anime-card">
-            <div class="video-wrapper">
-                <iframe src="https://www.youtube.com/embed/FKoFBeHr55U" allowfullscreen></iframe>
-            </div>
-            <div class="card-info">
-                <p class="card-title">Visual Intensity</p>
-                <span class="tag">High Energy</span>
-            </div>
-        </div>
+<div class="anime-container">
+    <div class="video-box">
+        <video src="https://assets.mixkit.co/videos/preview/mixkit-animation-of-futuristic-city-with-neon-lights-40140-large.mp4" autoplay muted loop playsinline></video>
+        <div class="label">Cyberpunk</div>
+    </div>
+    <div class="video-box">
+        <video src="https://assets.mixkit.co/videos/preview/mixkit-dynamic-animation-of-a-person-running-in-the-snow-40134-large.mp4" autoplay muted loop playsinline></video>
+        <div class="label">Action</div>
+    </div>
+    <div class="video-box">
+        <video src="https://assets.mixkit.co/videos/preview/mixkit-clouds-and-blue-sky-background-animation-40130-large.mp4" autoplay muted loop playsinline></video>
+        <div class="label">Atmosphere</div>
+    </div>
+    <div class="video-box">
+        <video src="https://assets.mixkit.co/videos/preview/mixkit-animation-of-a-girl-sitting-by-the-window-40126-large.mp4" autoplay muted loop playsinline></video>
+        <div class="label">Lofi Vibes</div>
+    </div>
     </div>
 
 </body>
