@@ -2,13 +2,12 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>VYSAKH</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Space+Mono&display=swap" rel="stylesheet">
 
-<!-- PRISM -->
+<!-- Prism -->
 <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-okaidia.css" rel="stylesheet"/>
 <link href="https://cdn.jsdelivr.net/npm/prismjs/plugins/line-numbers/prism-line-numbers.css" rel="stylesheet"/>
 
@@ -17,20 +16,12 @@
 <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-javascript.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-css.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-markup.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-json.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-markdown.min.js"></script>
 
 <style>
 
-/* ================= GLOBAL ================= */
+/* GLOBAL */
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Space Mono',monospace;
-}
-
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Space Mono',monospace;}
 body{
 background:#000;
 height:100vh;
@@ -41,19 +32,7 @@ overflow:hidden;
 color:#fff;
 }
 
-/* ================= BG ================= */
-
-.bg-video{
-position:fixed;
-inset:0;
-width:100%;
-height:100%;
-object-fit:cover;
-filter:brightness(.3);
-z-index:-1;
-}
-
-/* ================= CARD ================= */
+/* PROFILE CARD */
 
 .profile-card{
 width:470px;
@@ -61,21 +40,17 @@ padding:55px;
 background:rgba(255,255,255,.05);
 backdrop-filter:blur(18px);
 border:1px solid rgba(0,242,255,.35);
-text-align:center;
 border-radius:12px;
+text-align:center;
 animation:float 6s infinite ease-in-out;
 }
 
-@keyframes float{
-50%{transform:translateY(-10px);}
-}
+@keyframes float{50%{transform:translateY(-10px);}}
 
 .secret{
 border-color:#ff0055;
 box-shadow:0 0 40px rgba(255,0,85,.6);
 }
-
-/* ================= TITLE ================= */
 
 h1{
 font-family:'Syncopate';
@@ -90,18 +65,12 @@ font-size:.75rem;
 font-weight:bold;
 }
 
-/* ================= STATS ================= */
-
 .stats{
 display:flex;
 justify-content:space-around;
 margin-top:25px;
 border-top:1px solid rgba(255,255,255,.15);
 padding-top:20px;
-}
-
-.stats div{
-font-size:.75rem;
 }
 
 .stat-val{
@@ -112,14 +81,11 @@ font-weight:bold;
 margin-top:5px;
 }
 
-/* ================= TERMINAL ================= */
+.code-line{margin-top:20px;color:#ccc;}
 
-.code-line{
-margin-top:20px;
-color:#ccc;
-}
+.hidden{display:none !important;}
 
-/* ================= DEV PANEL ================= */
+/* DEV PANEL */
 
 .dev-panel{
 margin-top:30px;
@@ -128,37 +94,14 @@ max-height:220px;
 overflow:auto;
 }
 
-.hidden{
-display:none !important;
-}
+.repo-title{font-weight:bold;margin-bottom:10px;}
 
-.repo-title{
-font-weight:bold;
-margin-bottom:10px;
-}
+.file{padding:7px;cursor:pointer;border-radius:6px;}
+.file:hover{background:rgba(0,242,255,.25);}
+.folder{color:#00f2ff;font-weight:bold;}
+.back{color:#ff4d6d;cursor:pointer;margin-right:10px;}
 
-.file{
-padding:7px;
-cursor:pointer;
-border-radius:6px;
-}
-
-.file:hover{
-background:rgba(0,242,255,.25);
-}
-
-.folder{
-color:#00f2ff;
-font-weight:bold;
-}
-
-.back{
-color:#ff4d6d;
-cursor:pointer;
-margin-right:10px;
-}
-
-/* ================= VIEWER ================= */
+/* FILE VIEWER */
 
 .viewer{
 position:fixed;
@@ -168,7 +111,6 @@ border:1px solid #00f2ff;
 padding:20px;
 display:flex;
 flex-direction:column;
-
 opacity:0;
 pointer-events:none;
 visibility:hidden;
@@ -196,35 +138,67 @@ cursor:pointer;
 margin-right:10px;
 }
 
-#copy-file:hover{
-background:#ff0055;
-color:#fff;
+#copy-file:hover{background:#ff0055;color:#fff;}
+
+#close-viewer{cursor:pointer;color:#ff4d6d;}
+
+pre{flex:1;overflow:auto;border-radius:8px;padding:10px;}
+
+/* ADMIN TERMINAL */
+
+.admin-terminal{
+position:fixed;
+inset:0;
+background:#120000;
+color:#ff2e63;
+font-family:monospace;
+display:none;
+flex-direction:column;
+padding:25px;
+z-index:9999;
 }
 
-#close-viewer{
-cursor:pointer;
-color:#ff4d6d;
+.admin-terminal.active{
+display:flex;
+animation:glitchFlash .2s 3;
 }
 
-pre{
+@keyframes glitchFlash{
+0%{background:#120000;}
+50%{background:#300000;}
+100%{background:#120000;}
+}
+
+.admin-header{
+font-weight:bold;
+margin-bottom:15px;
+border-bottom:1px solid #ff0055;
+padding-bottom:8px;
+}
+
+#terminal-output{
 flex:1;
 overflow:auto;
-border-radius:8px;
-padding:10px;
+margin-bottom:10px;
 }
 
-/* scrollbar */
-::-webkit-scrollbar{width:6px;}
-::-webkit-scrollbar-thumb{background:#00f2ff;}
+.terminal-input-line{display:flex;}
+
+.terminal-input-line span{margin-right:8px;}
+
+#terminal-input{
+background:transparent;
+border:none;
+outline:none;
+color:#ff2e63;
+flex:1;
+font-family:monospace;
+}
 
 </style>
 </head>
 
 <body>
-
-<video class="bg-video" autoplay muted loop playsinline>
-<source src="https://assets.mixkit.co/videos/preview/mixkit-star-field-background-animation-loop-3037-large.mp4">
-</video>
 
 <div class="profile-card">
 
@@ -239,23 +213,18 @@ padding:10px;
 
 <p class="code-line"></p>
 
-<!-- DEV PANEL -->
 <div id="dev-panel" class="dev-panel hidden">
-
 <p class="repo-title">
 <span id="back-btn" class="back hidden">⬅ Back</span>
 Repository Explorer
 </p>
-
 <div id="repo-files"></div>
-
 </div>
 
 </div>
 
-<!-- VIEWER -->
+<!-- FILE VIEWER -->
 <div id="file-viewer" class="viewer">
-
 <div class="viewer-top">
 <span id="file-name"></span>
 <div>
@@ -263,11 +232,17 @@ Repository Explorer
 <span id="close-viewer">✖</span>
 </div>
 </div>
+<pre class="line-numbers"><code id="file-content"></code></pre>
+</div>
 
-<pre class="line-numbers">
-<code id="file-content"></code>
-</pre>
-
+<!-- ADMIN TERMINAL -->
+<div id="admin-terminal" class="admin-terminal">
+<div class="admin-header">ROOT ACCESS — VYSAKH SYSTEM</div>
+<div id="terminal-output"></div>
+<div class="terminal-input-line">
+<span>root@vysakh:~#</span>
+<input type="text" id="terminal-input" autocomplete="off">
+</div>
 </div>
 
 <script>
@@ -276,127 +251,137 @@ Repository Explorer
 const line=document.querySelector(".code-line");
 const txt="> initializing developer...";
 let i=0;
-(function t(){
-if(i<txt.length){
-line.innerText+=txt[i++];
-setTimeout(t,40);
-}})();
+(function t(){if(i<txt.length){line.innerText+=txt[i++];setTimeout(t,40);}})();
 
 /* DEV MODE */
 function activateSecret(){
 const panel=document.getElementById("dev-panel");
-document.querySelector(".profile-card")
-.classList.toggle("secret");
-
+document.querySelector(".profile-card").classList.toggle("secret");
 panel.classList.toggle("hidden");
-
-if(!panel.classList.contains("hidden"))
-loadRepo();
+if(!panel.classList.contains("hidden")) loadRepo();
 }
 
-/* desktop */
-document.addEventListener("keydown",
-e=>{if(e.key==="/")activateSecret();});
-
-/* mobile */
-let taps=0,hold;
-document.addEventListener("touchstart",()=>{
-taps++;
-if(taps===3){
-hold=setTimeout(()=>{
-activateSecret();
-taps=0;
-},800);
-}
-setTimeout(()=>taps=0,600);
-});
-document.addEventListener("touchend",
-()=>clearTimeout(hold));
+document.addEventListener("keydown",e=>{if(e.key==="/")activateSecret();});
 
 /* GITHUB */
 const repoAPI="https://api.github.com/repos/EphemeralYe/SGC/contents";
 const repo=document.getElementById("repo-files");
 const back=document.getElementById("back-btn");
-
 let stack=[];
 
 async function loadRepo(path=""){
-
 repo.innerHTML="loading...";
 back.classList.toggle("hidden",stack.length===0);
-
 const r=await fetch(repoAPI+"/"+path);
 const data=await r.json();
-
 repo.innerHTML="";
-
 data.forEach(f=>{
 const d=document.createElement("div");
 d.className="file "+(f.type==="dir"?"folder":"");
 d.innerHTML=(f.type==="dir"?"📁 ":"📄 ")+f.name;
-
 d.onclick=()=>{
-if(f.type==="dir"){
-stack.push(path);
-loadRepo(f.path);
-}else openFile(f);
+if(f.type==="dir"){stack.push(path);loadRepo(f.path);}
+else openFile(f);
 };
-
 repo.appendChild(d);
 });
 }
 
 back.onclick=()=>loadRepo(stack.pop()||"");
 
-/* LANGUAGE */
-function lang(n){
-return{
-js:"javascript",
-html:"markup",
-css:"css",
-json:"json",
-md:"markdown"
-}[n.split(".").pop()]||"markup";
-}
-
-/* VIEWER */
+/* FILE VIEWER */
 const viewer=document.getElementById("file-viewer");
 const content=document.getElementById("file-content");
 const fname=document.getElementById("file-name");
-
 let current="";
 
 async function openFile(file){
-
 viewer.classList.add("active");
-
 fname.innerText="> "+file.name;
-
 const r=await fetch(file.download_url);
 current=await r.text();
-
-content.className="language-"+lang(file.name);
+content.className="language-javascript";
 content.textContent=current;
-
 Prism.highlightElement(content);
 }
 
 document.getElementById("close-viewer")
 .onclick=()=>viewer.classList.remove("active");
 
-/* COPY */
 document.getElementById("copy-file")
 .onclick=async()=>{
 await navigator.clipboard.writeText(current);
-const b=document.getElementById("copy-file");
-b.innerText="✅ Copied!";
-setTimeout(()=>b.innerText="📋 Copy",1500);
 };
 
-/* SAFETY */
-window.onload=()=>{
-viewer.classList.remove("active");
-};
+/* ADMIN MODE */
+let secretBuffer="";
+const secretCode="vysakh@root";
+
+document.addEventListener("keydown",(e)=>{
+secretBuffer+=e.key.toLowerCase();
+if(secretBuffer.length>20) secretBuffer=secretBuffer.slice(-20);
+if(secretBuffer.includes(secretCode)){
+launchAdmin();
+secretBuffer="";
+}
+});
+
+function launchAdmin(){
+document.getElementById("admin-terminal").classList.add("active");
+document.querySelector(".profile-card").style.display="none";
+bootSequence();
+}
+
+function bootSequence(){
+const output=document.getElementById("terminal-output");
+const lines=[
+"Initializing root modules...",
+"Bypassing security layers...",
+"Injecting system override...",
+"Access granted.",
+"",
+"Type 'help' to view commands."
+];
+let i=0;
+const interval=setInterval(()=>{
+if(i<lines.length){output.innerHTML+=lines[i]+"<br>";i++;}
+else{clearInterval(interval);enableTerminal();}
+},400);
+}
+
+function enableTerminal(){
+const input=document.getElementById("terminal-input");
+input.focus();
+input.addEventListener("keydown",(e)=>{
+if(e.key==="Enter"){
+const cmd=input.value.trim();
+handleCommand(cmd);
+input.value="";
+}
+});
+}
+
+function handleCommand(cmd){
+const output=document.getElementById("terminal-output");
+output.innerHTML+="<br>root@vysakh:~# "+cmd+"<br>";
+
+switch(cmd){
+case "help": output.innerHTML+="whoami | skills | projects | clear | exit<br>"; break;
+case "whoami": output.innerHTML+="Root user: Vysakh — BCA Developer<br>"; break;
+case "skills": output.innerHTML+="HTML CSS JS Python Git UI/UX<br>"; break;
+case "projects": output.innerHTML+="SGC Repo | Tools Panel | Secret Systems<br>"; break;
+case "clear": output.innerHTML=""; break;
+case "exit": exitAdmin(); break;
+default: output.innerHTML+="Command not found.<br>";
+}
+
+output.scrollTop=output.scrollHeight;
+}
+
+function exitAdmin(){
+document.getElementById("admin-terminal").classList.remove("active");
+document.querySelector(".profile-card").style.display="block";
+}
 
 </script>
 
