@@ -142,6 +142,33 @@ color:#ff0055;
 .back:hover{
 text-decoration:underline;
 }
+.viewer{
+position:fixed;
+inset:40px;
+background:#000;
+border:1px solid #00f2ff;
+padding:15px;
+overflow:auto;
+z-index:999;
+}
+
+.viewer-top{
+display:flex;
+justify-content:space-between;
+color:#00f2ff;
+margin-bottom:10px;
+}
+
+#close-viewer{
+cursor:pointer;
+color:#ff0055;
+}
+
+#file-content{
+white-space:pre-wrap;
+color:#00ffcc;
+font-size:.8rem;
+}
 
 /* scanlines */
 body::after{
@@ -185,6 +212,16 @@ pointer-events:none;
 > Repository Explorer
 </p>
 <div id="repo-files"></div>
+</div>
+<div id="file-viewer" class="viewer hidden">
+
+    <div class="viewer-top">
+        <span id="close-viewer">✖</span>
+        <span id="file-name"></span>
+    </div>
+
+    <pre id="file-content"></pre>
+
 </div>
 
 </div>
@@ -327,10 +364,7 @@ loadRepo(item.path);
 
 }else{
 
-window.open(
-item.html_url,
-"_blank"
-);
+openFile(item);
 }
 
 };
@@ -430,5 +464,51 @@ document.addEventListener(
 "touchend",
 ()=>clearTimeout(holdTimer)
 );
+/* ======================
+   FILE VIEWER
+====================== */
 
+const viewer =
+document.getElementById("file-viewer");
+
+const fileContent =
+document.getElementById("file-content");
+
+const fileName =
+document.getElementById("file-name");
+
+document
+.getElementById("close-viewer")
+.onclick=()=>{
+viewer.classList.add("hidden");
+};
+
+
+async function openFile(file){
+
+viewer.classList.remove("hidden");
+
+fileName.innerText =
+"> " + file.name;
+
+fileContent.innerText =
+"loading file...";
+
+try{
+
+const res =
+await fetch(file.download_url);
+
+const text =
+await res.text();
+
+fileContent.innerText = text;
+
+}catch{
+
+fileContent.innerText =
+"failed to load file";
+
+}
+}
 </script>
