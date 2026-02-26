@@ -7,7 +7,15 @@
 <title>VYSAKH</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Space+Mono&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.css" rel="stylesheet"/>
 
+<script src="https://cdn.jsdelivr.net/npm/prismjs/prism.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-javascript.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-css.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-markup.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-json.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-markdown.min.js"></script>
 <style>
 
 *{
@@ -219,17 +227,19 @@ pointer-events:none;
         <span id="close-viewer">✖</span>
         <span id="file-name"></span>
     </div>
-
-    <pre id="file-content"></pre>
+    <pre class="language-js">
+        <code id="file-content"></code>
+    </pre>
 
 </div>
 
 </div>
 <script>
 
-/* ==============================
+/* =============================
    ELEMENTS
-============================== */
+============================= */
+
 const name = document.getElementById("name");
 const card = document.querySelector(".profile-card");
 const line = document.querySelector(".code-line");
@@ -240,10 +250,25 @@ document.getElementById("repo-files");
 const backBtn =
 document.getElementById("back-btn");
 
+const viewer =
+document.getElementById("file-viewer");
 
-/* ==============================
+const fileContent =
+document.getElementById("file-content");
+
+const fileName =
+document.getElementById("file-name");
+
+document
+.getElementById("close-viewer")
+.onclick = () =>
+viewer.classList.add("hidden");
+
+
+/* =============================
    TYPEWRITER EFFECT
-============================== */
+============================= */
+
 const text="> initializing developer...";
 let i=0;
 
@@ -255,9 +280,10 @@ setTimeout(typeWriter,40);
 typeWriter();
 
 
-/* ==============================
-   NAME GLITCH EFFECT
-============================== */
+/* =============================
+   GLITCH EFFECT
+============================= */
+
 const chars="VYSAKH/ヴイサク";
 
 name.onmouseover=()=>{
@@ -288,16 +314,14 @@ iteration+=1/3;
 };
 
 
-/* ==============================
-   PARALLAX CARD
-============================== */
+/* =============================
+   PARALLAX EFFECT
+============================= */
+
 document.addEventListener("mousemove",(e)=>{
 
-const x=
-(window.innerWidth/2-e.pageX)/30;
-
-const y=
-(window.innerHeight/2-e.pageY)/30;
+const x=(innerWidth/2-e.pageX)/30;
+const y=(innerHeight/2-e.pageY)/30;
 
 card.style.transform=
 `rotateY(${x}deg) rotateX(${y}deg)`;
@@ -310,23 +334,81 @@ card.style.transform=
 });
 
 
-/* ==============================
-   GITHUB REPO EXPLORER
-============================== */
+/* =============================
+   LANGUAGE DETECTOR
+============================= */
+
+function detectLanguage(filename){
+
+const ext =
+filename.split(".").pop().toLowerCase();
+
+switch(ext){
+case "js": return "javascript";
+case "html": return "markup";
+case "css": return "css";
+case "json": return "json";
+case "md": return "markdown";
+case "txt": return "markup";
+default: return "markup";
+}
+}
+
+
+/* =============================
+   FILE VIEWER
+============================= */
+
+async function openFile(file){
+
+viewer.classList.remove("hidden");
+
+fileName.innerText="> "+file.name;
+
+fileContent.textContent="loading...";
+
+try{
+
+const res =
+await fetch(file.download_url);
+
+const text =
+await res.text();
+
+const lang =
+detectLanguage(file.name);
+
+fileContent.className =
+"language-"+lang;
+
+fileContent.textContent=text;
+
+/* Prism highlight */
+Prism.highlightElement(fileContent);
+
+}catch{
+
+fileContent.textContent=
+"failed to load file";
+
+}
+}
+
+
+/* =============================
+   GITHUB EXPLORER
+============================= */
 
 const repoAPI =
 "https://api.github.com/repos/EphemeralYe/SGC/contents";
 
-/* folder history */
 let historyStack=[];
 
-
-/* LOAD REPO */
 async function loadRepo(path=""){
 
 repoContainer.innerHTML="> loading...";
 
-/* back button visibility */
+/* back button */
 if(historyStack.length>0)
 backBtn.classList.remove("hidden");
 else
@@ -334,16 +416,18 @@ backBtn.classList.add("hidden");
 
 try{
 
-const res=
+const res =
 await fetch(repoAPI+"/"+path);
 
-const data=await res.json();
+const data =
+await res.json();
 
 repoContainer.innerHTML="";
 
 data.forEach(item=>{
 
-const div=document.createElement("div");
+const div =
+document.createElement("div");
 
 div.className=
 "file "+(
@@ -365,6 +449,7 @@ loadRepo(item.path);
 }else{
 
 openFile(item);
+
 }
 
 };
@@ -383,6 +468,7 @@ repoContainer.innerHTML=
 
 
 /* BACK BUTTON */
+
 backBtn.onclick=()=>{
 
 const previous=
@@ -393,9 +479,10 @@ loadRepo(previous);
 };
 
 
-/* ==============================
+/* =============================
    SECRET MODE
-============================== */
+============================= */
+
 function activateSecret(){
 
 card.classList.toggle("secret");
@@ -405,7 +492,6 @@ document.getElementById("dev-panel");
 
 panel.classList.toggle("hidden");
 
-/* reset history */
 historyStack=[];
 
 loadRepo();
@@ -413,14 +499,15 @@ loadRepo();
 navigator.vibrate?.(200);
 
 alert(
-"ACCESS GRANTED\nLoading Repository..."
+"ACCESS GRANTED\nDeveloper Mode Enabled"
 );
 }
 
 
-/* ==============================
-   DESKTOP SECRET (/)
-============================== */
+/* =============================
+   DESKTOP SECRET
+============================= */
+
 document.addEventListener(
 "keydown",
 (e)=>{
@@ -429,10 +516,9 @@ activateSecret();
 });
 
 
-/* ==============================
+/* =============================
    MOBILE SECRET
-   Triple Tap + Hold
-============================== */
+============================= */
 
 let taps=0;
 let tapTimer;
@@ -458,57 +544,13 @@ taps=0;
 },800);
 
 }
+
 });
 
 document.addEventListener(
 "touchend",
 ()=>clearTimeout(holdTimer)
 );
-/* ======================
-   FILE VIEWER
-====================== */
 
-const viewer =
-document.getElementById("file-viewer");
-
-const fileContent =
-document.getElementById("file-content");
-
-const fileName =
-document.getElementById("file-name");
-
-document
-.getElementById("close-viewer")
-.onclick=()=>{
-viewer.classList.add("hidden");
-};
-
-
-async function openFile(file){
-
-viewer.classList.remove("hidden");
-
-fileName.innerText =
-"> " + file.name;
-
-fileContent.innerText =
-"loading file...";
-
-try{
-
-const res =
-await fetch(file.download_url);
-
-const text =
-await res.text();
-
-fileContent.innerText = text;
-
-}catch{
-
-fileContent.innerText =
-"failed to load file";
-
-}
-}
 </script>
+</body>
