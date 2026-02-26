@@ -145,69 +145,151 @@ body::after {
 
         <p class="code-line">> while(student.alive) { code(); }</p>
     </div>
+<script>
 
-    <script>
-const name = document.getElementById('name');
-const card = document.querySelector('.profile-card');
+/* ==============================
+   ELEMENTS
+============================== */
+const name = document.getElementById("name");
+const card = document.querySelector(".profile-card");
+const line = document.querySelector(".code-line");
 
 const chars = "VYSAKH/ヴイサク";
 
-/* ===== GLITCH ===== */
+
+/* ==============================
+   NAME GLITCH EFFECT
+============================== */
 name.onmouseover = () => {
+
     let iteration = 0;
 
     const interval = setInterval(() => {
+
         name.innerText = name.innerText
         .split("")
         .map((char, index) => {
-            if(index < iteration) return chars[index];
+
+            if(index < iteration)
+                return chars[index];
+
             return String.fromCharCode(
                 65 + Math.floor(Math.random()*26)
             );
+
         }).join("");
 
         if(iteration >= chars.length)
             clearInterval(interval);
 
         iteration += 1/3;
+
     },30);
 };
 
 
-/* ===== PARALLAX ===== */
+/* ==============================
+   PARALLAX CARD MOVEMENT
+============================== */
 document.addEventListener("mousemove",(e)=>{
-    const x = (window.innerWidth/2 - e.pageX)/30;
-    const y = (window.innerHeight/2 - e.pageY)/30;
+
+    const x =
+      (window.innerWidth/2 - e.pageX)/30;
+
+    const y =
+      (window.innerHeight/2 - e.pageY)/30;
 
     card.style.transform =
         `rotateY(${x}deg) rotateX(${y}deg)`;
+
 });
 
 
-/* ===== TYPEWRITER ===== */
-const line = document.querySelector(".code-line");
+/* ==============================
+   TYPEWRITER EFFECT
+============================== */
 const text = "> initializing developer...";
 let i = 0;
-line.innerText="";
 
-function type(){
+line.innerText = "";
+
+function typeWriter(){
     if(i < text.length){
         line.innerText += text.charAt(i);
         i++;
-        setTimeout(type,40);
+        setTimeout(typeWriter,40);
     }
 }
-type();
+typeWriter();
 
 
-/* ===== SECRET ACCESS MODE ===== */
+/* ==============================
+   SECRET MODE FUNCTION
+============================== */
+function activateSecret(){
+
+    card.classList.toggle("secret");
+
+    // vibration (mobile supported)
+    if(navigator.vibrate){
+        navigator.vibrate(200);
+    }
+
+    alert("ACCESS GRANTED\nDeveloper Mode Enabled");
+}
+
+
+/* ==============================
+   DESKTOP SECRET (/ KEY)
+============================== */
 document.addEventListener("keydown",(e)=>{
     if(e.key === "/"){
-        card.classList.toggle("secret");
-
-        alert("ACCESS GRANTED\nDeveloper Mode Enabled");
+        activateSecret();
     }
 });
+
+
+/* ==============================
+   MOBILE SECRET MODE
+   Triple Tap + Hold
+============================== */
+
+let tapCount = 0;
+let tapTimer;
+let holdTimer;
+
+document.addEventListener("touchstart",()=>{
+
+    tapCount++;
+
+    clearTimeout(tapTimer);
+
+    tapTimer = setTimeout(()=>{
+        tapCount = 0;
+    },600);
+
+    if(tapCount === 3){
+
+        holdTimer = setTimeout(()=>{
+            activateSecret();
+            tapCount = 0;
+        },800);
+    }
+});
+
+document.addEventListener("touchend",()=>{
+    clearTimeout(holdTimer);
+});
+
+
+/* ==============================
+   SMOOTH RESET WHEN MOUSE LEAVES
+============================== */
+document.addEventListener("mouseleave",()=>{
+    card.style.transform =
+        "rotateY(0deg) rotateX(0deg)";
+});
+
 </script>
 </body>
 </html>
