@@ -2,37 +2,33 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
 <title>VYSAKH</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Space+Mono&display=swap" rel="stylesheet">
+
+<!-- PRISM SYNTAX -->
 <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.css" rel="stylesheet"/>
-
 <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.js"></script>
-
 <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-javascript.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-css.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-markup.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-json.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-markdown.min.js"></script>
+
 <style>
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-cursor:crosshair;
-}
+*{margin:0;padding:0;box-sizing:border-box;cursor:crosshair;}
 
 body{
-background:black;
+background:#000;
 height:100vh;
-overflow:hidden;
 display:flex;
-align-items:center;
 justify-content:center;
-font-family:'Space Mono',monospace;
+align-items:center;
+font-family:'Space Mono';
+overflow:hidden;
 }
 
 /* VIDEO */
@@ -44,7 +40,6 @@ height:100%;
 object-fit:cover;
 z-index:-1;
 filter:brightness(.3);
-pointer-events:none;
 }
 
 /* CARD */
@@ -55,13 +50,12 @@ background:rgba(255,255,255,.03);
 backdrop-filter:blur(20px);
 border:1px solid rgba(0,242,255,.3);
 text-align:center;
-animation:float 6s ease-in-out infinite;
+animation:float 6s infinite;
 transition:.2s;
 }
 
 @keyframes float{
-0%,100%{transform:translateY(0)}
-50%{transform:translateY(-10px)}
+50%{transform:translateY(-10px);}
 }
 
 .secret{
@@ -69,10 +63,8 @@ border-color:#ff0055;
 box-shadow:0 0 40px #ff0055;
 }
 
-/* TITLE */
 h1{
 font-family:'Syncopate';
-font-size:3rem;
 letter-spacing:12px;
 color:white;
 }
@@ -80,33 +72,24 @@ color:white;
 .subtitle{
 color:#00f2ff;
 font-size:.7rem;
-letter-spacing:6px;
 margin-top:10px;
 }
 
-/* STATS */
 .stats{
-margin-top:25px;
 display:flex;
 justify-content:space-around;
+margin-top:25px;
 border-top:1px solid rgba(255,255,255,.1);
 padding-top:20px;
-}
-
-.stat-item{
-font-size:.6rem;
-color:white;
 }
 
 .stat-val{
 display:block;
 color:#ff0055;
-font-size:1rem;
 }
 
 .code-line{
 margin-top:20px;
-font-size:.75rem;
 color:#aaa;
 }
 
@@ -119,14 +102,7 @@ overflow:auto;
 font-size:.75rem;
 }
 
-.hidden{
-display:none;
-}
-
-.dev-title{
-color:#00f2ff;
-margin-bottom:10px;
-}
+.hidden{display:none;}
 
 .file{
 padding:6px;
@@ -138,26 +114,23 @@ cursor:pointer;
 background:rgba(0,242,255,.15);
 }
 
-.folder{
-color:#00f2ff;
-}
+.folder{color:#00f2ff;}
+
 .back{
+color:#ff0055;
 cursor:pointer;
 margin-right:10px;
-color:#ff0055;
 }
 
-.back:hover{
-text-decoration:underline;
-}
+/* VIEWER */
 .viewer{
 position:fixed;
 inset:40px;
 background:#000;
 border:1px solid #00f2ff;
 padding:15px;
-overflow:auto;
 z-index:999;
+overflow:auto;
 }
 
 .viewer-top{
@@ -167,28 +140,26 @@ color:#00f2ff;
 margin-bottom:10px;
 }
 
+#download-file{
+background:#00f2ff;
+border:none;
+padding:5px 10px;
+cursor:pointer;
+margin-right:10px;
+}
+
+#download-file:hover{
+background:#ff0055;
+color:white;
+}
+
 #close-viewer{
 cursor:pointer;
 color:#ff0055;
 }
 
-#file-content{
+pre{
 white-space:pre-wrap;
-color:#00ffcc;
-font-size:.8rem;
-}
-
-/* scanlines */
-body::after{
-content:"";
-position:fixed;
-inset:0;
-background:repeating-linear-gradient(
-transparent,
-transparent 2px,
-rgba(255,255,255,.03) 3px
-);
-pointer-events:none;
 }
 
 </style>
@@ -206,351 +177,218 @@ pointer-events:none;
 <div class="subtitle">BCA STUDENT // YEAR I</div>
 
 <div class="stats">
-<div class="stat-item">SKILL<span class="stat-val">NULL</span></div>
-<div class="stat-item">LVL<span class="stat-val">01</span></div>
-<div class="stat-item">STATUS<span class="stat-val">GRINDING</span></div>
+<div>SKILL<span class="stat-val">NULL</span></div>
+<div>LVL<span class="stat-val">01</span></div>
+<div>STATUS<span class="stat-val">GRINDING</span></div>
 </div>
 
 <p class="code-line"></p>
 
-<!-- DEV MODE PANEL -->
+<!-- DEV PANEL -->
 <div id="dev-panel" class="dev-panel hidden">
-<p class="dev-title">
+<p>
 <span id="back-btn" class="back hidden">⬅ Back</span>
 > Repository Explorer
 </p>
 <div id="repo-files"></div>
 </div>
+
+</div>
+
+<!-- FILE VIEWER -->
 <div id="file-viewer" class="viewer hidden">
 
-    <div class="viewer-top">
-        <span id="close-viewer">✖</span>
-        <span id="file-name"></span>
-    </div>
-    <pre class="language-js">
-        <code id="file-content"></code>
-    </pre>
+<div class="viewer-top">
+<span id="file-name"></span>
+<div>
+<button id="download-file">⬇ Download</button>
+<span id="close-viewer">✖</span>
+</div>
+</div>
+
+<pre><code id="file-content"></code></pre>
 
 </div>
 
-</div>
 <script>
 
-/* =============================
-   ELEMENTS
-============================= */
+/* ELEMENTS */
+const name=document.getElementById("name");
+const card=document.querySelector(".profile-card");
+const line=document.querySelector(".code-line");
 
-const name = document.getElementById("name");
-const card = document.querySelector(".profile-card");
-const line = document.querySelector(".code-line");
+const repoContainer=document.getElementById("repo-files");
+const backBtn=document.getElementById("back-btn");
 
-const repoContainer =
-document.getElementById("repo-files");
+const viewer=document.getElementById("file-viewer");
+const fileContent=document.getElementById("file-content");
+const fileName=document.getElementById("file-name");
 
-const backBtn =
-document.getElementById("back-btn");
+let currentFileURL="";
+let currentFileName="";
 
-const viewer =
-document.getElementById("file-viewer");
-
-const fileContent =
-document.getElementById("file-content");
-
-const fileName =
-document.getElementById("file-name");
-
-document
-.getElementById("close-viewer")
-.onclick = () =>
-viewer.classList.add("hidden");
-
-
-/* =============================
-   TYPEWRITER EFFECT
-============================= */
-
+/* TYPE */
 const text="> initializing developer...";
 let i=0;
-
-function typeWriter(){
+(function type(){
 if(i<text.length){
 line.innerText+=text[i++];
-setTimeout(typeWriter,40);
-}}
-typeWriter();
+setTimeout(type,40);
+}})();
 
-
-/* =============================
-   GLITCH EFFECT
-============================= */
-
+/* GLITCH */
 const chars="VYSAKH/ヴイサク";
-
 name.onmouseover=()=>{
-
-let iteration=0;
-
-const interval=setInterval(()=>{
-
-name.innerText=name.innerText
-.split("")
-.map((c,index)=>{
-
-if(index<iteration)
-return chars[index];
-
-return String.fromCharCode(
-65+Math.floor(Math.random()*26)
-);
-
-}).join("");
-
-if(iteration>=chars.length)
-clearInterval(interval);
-
-iteration+=1/3;
-
+let it=0;
+const inter=setInterval(()=>{
+name.innerText=name.innerText.split("")
+.map((c,i)=>i<it?chars[i]:
+String.fromCharCode(65+Math.random()*26))
+.join("");
+if(it>=chars.length)clearInterval(inter);
+it+=1/3;
 },30);
 };
 
-
-/* =============================
-   PARALLAX EFFECT
-============================= */
-
-document.addEventListener("mousemove",(e)=>{
-
+/* PARALLAX */
+document.addEventListener("mousemove",e=>{
 const x=(innerWidth/2-e.pageX)/30;
 const y=(innerHeight/2-e.pageY)/30;
-
 card.style.transform=
 `rotateY(${x}deg) rotateX(${y}deg)`;
-
 });
 
-document.addEventListener("mouseleave",()=>{
-card.style.transform=
-"rotateY(0deg) rotateX(0deg)";
-});
-
-
-/* =============================
-   LANGUAGE DETECTOR
-============================= */
-
-function detectLanguage(filename){
-
-const ext =
-filename.split(".").pop().toLowerCase();
-
-switch(ext){
-case "js": return "javascript";
-case "html": return "markup";
-case "css": return "css";
-case "json": return "json";
-case "md": return "markdown";
-case "txt": return "markup";
-default: return "markup";
-}
+/* LANGUAGE */
+function detectLanguage(f){
+const e=f.split(".").pop();
+return{
+js:"javascript",
+html:"markup",
+css:"css",
+json:"json",
+md:"markdown"
+}[e]||"markup";
 }
 
-
-/* =============================
-   FILE VIEWER
-============================= */
-
+/* FILE VIEW */
 async function openFile(file){
 
 viewer.classList.remove("hidden");
 
 fileName.innerText="> "+file.name;
 
+currentFileURL=file.download_url;
+currentFileName=file.name;
+
 fileContent.textContent="loading...";
 
-try{
+const res=await fetch(file.download_url);
+const txt=await res.text();
 
-const res =
-await fetch(file.download_url);
+fileContent.className=
+"language-"+detectLanguage(file.name);
 
-const text =
-await res.text();
+fileContent.textContent=txt;
 
-const lang =
-detectLanguage(file.name);
-
-fileContent.className =
-"language-"+lang;
-
-fileContent.textContent=text;
-
-/* Prism highlight */
 Prism.highlightElement(fileContent);
-
-}catch{
-
-fileContent.textContent=
-"failed to load file";
-
-}
 }
 
+document.getElementById("close-viewer")
+.onclick=()=>viewer.classList.add("hidden");
 
-/* =============================
-   GITHUB EXPLORER
-============================= */
+/* DOWNLOAD */
+document.getElementById("download-file")
+.onclick=()=>{
+const a=document.createElement("a");
+a.href=currentFileURL;
+a.download=currentFileName;
+a.click();
+};
 
-const repoAPI =
+/* GITHUB */
+const repoAPI=
 "https://api.github.com/repos/EphemeralYe/SGC/contents";
 
 let historyStack=[];
 
 async function loadRepo(path=""){
 
-repoContainer.innerHTML="> loading...";
+repoContainer.innerHTML="loading...";
 
-/* back button */
-if(historyStack.length>0)
-backBtn.classList.remove("hidden");
-else
-backBtn.classList.add("hidden");
+backBtn.classList
+.toggle("hidden",
+historyStack.length===0);
 
-try{
-
-const res =
-await fetch(repoAPI+"/"+path);
-
-const data =
-await res.json();
+const res=await fetch(repoAPI+"/"+path);
+const data=await res.json();
 
 repoContainer.innerHTML="";
 
 data.forEach(item=>{
-
-const div =
-document.createElement("div");
+const div=document.createElement("div");
 
 div.className=
-"file "+(
-item.type==="dir"
-?"folder":""
-);
+"file "+(item.type==="dir"
+?"folder":"");
 
 div.innerHTML=
 (item.type==="dir"
 ?"📁 ":"📄 ")+item.name;
 
 div.onclick=()=>{
-
 if(item.type==="dir"){
-
 historyStack.push(path);
 loadRepo(item.path);
-
 }else{
-
 openFile(item);
-
 }
-
 };
 
 repoContainer.appendChild(div);
-
 });
-
-}catch{
-
-repoContainer.innerHTML=
-"> failed to load repo";
-
 }
-}
-
-
-/* BACK BUTTON */
 
 backBtn.onclick=()=>{
-
-const previous=
-historyStack.pop() || "";
-
-loadRepo(previous);
-
+loadRepo(historyStack.pop()||"");
 };
 
-
-/* =============================
-   SECRET MODE
-============================= */
-
+/* SECRET MODE */
 function activateSecret(){
-
 card.classList.toggle("secret");
-
-const panel=
-document.getElementById("dev-panel");
-
-panel.classList.toggle("hidden");
+document
+.getElementById("dev-panel")
+.classList.toggle("hidden");
 
 historyStack=[];
-
 loadRepo();
 
 navigator.vibrate?.(200);
-
-alert(
-"ACCESS GRANTED\nDeveloper Mode Enabled"
-);
 }
 
-
-/* =============================
-   DESKTOP SECRET
-============================= */
-
+/* DESKTOP */
 document.addEventListener(
 "keydown",
-(e)=>{
-if(e.key==="/")
-activateSecret();
-});
+e=>{if(e.key==="/")activateSecret();}
+);
 
-
-/* =============================
-   MOBILE SECRET
-============================= */
-
-let taps=0;
-let tapTimer;
-let holdTimer;
-
-document.addEventListener(
-"touchstart",
-()=>{
-
+/* MOBILE */
+let taps=0,hold;
+document.addEventListener("touchstart",()=>{
 taps++;
-
-clearTimeout(tapTimer);
-
-tapTimer=setTimeout(()=>{
-taps=0;
-},600);
-
 if(taps===3){
-
-holdTimer=setTimeout(()=>{
+hold=setTimeout(()=>{
 activateSecret();
 taps=0;
 },800);
-
 }
-
+setTimeout(()=>taps=0,600);
 });
-
 document.addEventListener(
 "touchend",
-()=>clearTimeout(holdTimer)
+()=>clearTimeout(hold)
 );
 
 </script>
+
 </body>
+</html>
