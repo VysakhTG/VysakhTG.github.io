@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>VYSAKH</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Space+Mono&display=swap" rel="stylesheet">
 
-<!-- PRISM (Better Theme + Line Numbers) -->
+<!-- PRISM -->
 <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-okaidia.css" rel="stylesheet"/>
 <link href="https://cdn.jsdelivr.net/npm/prismjs/plugins/line-numbers/prism-line-numbers.css" rel="stylesheet"/>
 
@@ -20,7 +20,7 @@
 <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-markdown.min.js"></script>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Space Mono';}
 
 body{
 background:#000;
@@ -28,11 +28,10 @@ height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
-font-family:'Space Mono',monospace;
 overflow:hidden;
 }
 
-/* Background */
+/* BG */
 .bg-video{
 position:fixed;
 inset:0;
@@ -43,7 +42,7 @@ filter:brightness(.3);
 z-index:-1;
 }
 
-/* Card */
+/* CARD */
 .profile-card{
 width:460px;
 padding:50px;
@@ -51,7 +50,6 @@ background:rgba(255,255,255,.04);
 backdrop-filter:blur(20px);
 border:1px solid rgba(0,242,255,.3);
 text-align:center;
-transition:.3s;
 animation:float 6s infinite ease-in-out;
 }
 
@@ -67,14 +65,10 @@ box-shadow:0 0 40px #ff0055;
 h1{
 font-family:'Syncopate';
 letter-spacing:10px;
-color:white;
+color:#fff;
 }
 
-.subtitle{
-color:#00f2ff;
-font-size:.7rem;
-margin-top:10px;
-}
+.subtitle{color:#00f2ff;margin-top:10px;font-size:.7rem;}
 
 .stats{
 display:flex;
@@ -84,39 +78,20 @@ border-top:1px solid rgba(255,255,255,.1);
 padding-top:20px;
 }
 
-.stat-val{
-display:block;
-color:#ff0055;
-}
+.stat-val{display:block;color:#ff0055;}
 
-.code-line{
-margin-top:20px;
-color:#aaa;
-font-size:.8rem;
-}
+.code-line{margin-top:20px;color:#aaa}
 
-/* Dev Panel */
+/* DEV PANEL */
 .dev-panel{
 margin-top:25px;
 text-align:left;
 max-height:220px;
 overflow:auto;
-font-size:.8rem;
 }
 
-.hidden{display:none;}
-
-.file{
-padding:6px;
-color:white;
-cursor:pointer;
-border-radius:4px;
-}
-
-.file:hover{
-background:rgba(0,242,255,.15);
-}
-
+.file{padding:6px;color:#fff;cursor:pointer;}
+.file:hover{background:rgba(0,242,255,.2);}
 .folder{color:#00f2ff;}
 
 .back{
@@ -125,24 +100,33 @@ cursor:pointer;
 margin-right:10px;
 }
 
-/* Viewer */
+/* VIEWER FIX */
 .viewer{
 position:fixed;
 inset:40px;
 background:#111;
 border:1px solid #00f2ff;
 padding:20px;
-z-index:999;
 display:flex;
 flex-direction:column;
+
+opacity:0;
+pointer-events:none;
+visibility:hidden;
+transition:.25s;
+}
+
+.viewer.active{
+opacity:1;
+pointer-events:auto;
+visibility:visible;
 }
 
 .viewer-top{
 display:flex;
 justify-content:space-between;
-align-items:center;
+margin-bottom:10px;
 color:#00f2ff;
-margin-bottom:15px;
 }
 
 #copy-file{
@@ -150,31 +134,25 @@ background:#00f2ff;
 border:none;
 padding:6px 12px;
 cursor:pointer;
-font-size:.8rem;
 margin-right:10px;
-border-radius:4px;
 }
 
 #copy-file:hover{
 background:#ff0055;
-color:white;
+color:#fff;
 }
 
 #close-viewer{
 cursor:pointer;
 color:#ff0055;
-font-size:1rem;
 }
 
 pre{
 flex:1;
 overflow:auto;
-border-radius:6px;
 }
 
-/* Scrollbar */
-::-webkit-scrollbar{width:6px;}
-::-webkit-scrollbar-thumb{background:#00f2ff;}
+.hidden{display:none;}
 
 </style>
 </head>
@@ -205,8 +183,9 @@ border-radius:6px;
 
 </div>
 
-<!-- File Viewer -->
-<div id="file-viewer" class="viewer hidden">
+<!-- FILE VIEWER -->
+<div id="file-viewer" class="viewer">
+
 <div class="viewer-top">
 <span id="file-name"></span>
 <div>
@@ -218,44 +197,34 @@ border-radius:6px;
 <pre class="line-numbers">
 <code id="file-content"></code>
 </pre>
+
 </div>
 
 <script>
 
-/* Elements */
-const name=document.getElementById("name");
-const card=document.querySelector(".profile-card");
+/* TYPE */
 const line=document.querySelector(".code-line");
-const repoContainer=document.getElementById("repo-files");
-const backBtn=document.getElementById("back-btn");
-const viewer=document.getElementById("file-viewer");
-const fileContent=document.getElementById("file-content");
-const fileName=document.getElementById("file-name");
-
-let currentText="";
-
-/* Typewriter */
-const text="> initializing developer...";
+const txt="> initializing developer...";
 let i=0;
-(function type(){
-if(i<text.length){
-line.innerText+=text[i++];
-setTimeout(type,40);
+(function t(){
+if(i<txt.length){
+line.innerText+=txt[i++];
+setTimeout(t,40);
 }})();
 
-/* Secret Mode */
+/* SECRET */
 function activateSecret(){
-card.classList.toggle("secret");
-document.getElementById("dev-panel").classList.toggle("hidden");
+document.querySelector(".profile-card")
+.classList.toggle("secret");
+document.getElementById("dev-panel")
+.classList.toggle("hidden");
 loadRepo();
 }
 
-/* Desktop */
-document.addEventListener("keydown",e=>{
-if(e.key==="/")activateSecret();
-});
+document.addEventListener("keydown",
+e=>{if(e.key==="/")activateSecret();});
 
-/* Mobile */
+/* MOBILE */
 let taps=0,hold;
 document.addEventListener("touchstart",()=>{
 taps++;
@@ -267,82 +236,91 @@ taps=0;
 }
 setTimeout(()=>taps=0,600);
 });
-document.addEventListener("touchend",()=>clearTimeout(hold));
+document.addEventListener("touchend",
+()=>clearTimeout(hold));
 
-/* GitHub Explorer */
+/* GITHUB */
 const repoAPI="https://api.github.com/repos/EphemeralYe/SGC/contents";
-let historyStack=[];
+const repo=document.getElementById("repo-files");
+const back=document.getElementById("back-btn");
+
+let stack=[];
 
 async function loadRepo(path=""){
-repoContainer.innerHTML="loading...";
-backBtn.classList.toggle("hidden",historyStack.length===0);
+repo.innerHTML="loading...";
+back.classList.toggle("hidden",stack.length===0);
 
-const res=await fetch(repoAPI+"/"+path);
-const data=await res.json();
+const r=await fetch(repoAPI+"/"+path);
+const data=await r.json();
 
-repoContainer.innerHTML="";
+repo.innerHTML="";
 
-data.forEach(item=>{
-const div=document.createElement("div");
-div.className="file "+(item.type==="dir"?"folder":"");
-div.innerHTML=(item.type==="dir"?"📁 ":"📄 ")+item.name;
+data.forEach(f=>{
+const d=document.createElement("div");
+d.className="file "+(f.type==="dir"?"folder":"");
+d.innerHTML=(f.type==="dir"?"📁 ":"📄 ")+f.name;
 
-div.onclick=()=>{
-if(item.type==="dir"){
-historyStack.push(path);
-loadRepo(item.path);
-}else{
-openFile(item);
-}
+d.onclick=()=>{
+if(f.type==="dir"){
+stack.push(path);
+loadRepo(f.path);
+}else openFile(f);
 };
 
-repoContainer.appendChild(div);
+repo.appendChild(d);
 });
 }
 
-backBtn.onclick=()=>{
-loadRepo(historyStack.pop()||"");
-};
+back.onclick=()=>loadRepo(stack.pop()||"");
 
-/* Language Detect */
-function detectLanguage(name){
-const ext=name.split(".").pop();
+/* LANGUAGE */
+function lang(n){
 return{
 js:"javascript",
 html:"markup",
 css:"css",
 json:"json",
 md:"markdown"
-}[ext]||"markup";
+}[n.split(".").pop()]||"markup";
 }
 
-/* Open File */
+/* VIEWER */
+const viewer=document.getElementById("file-viewer");
+const content=document.getElementById("file-content");
+const fname=document.getElementById("file-name");
+
+let current="";
+
 async function openFile(file){
-viewer.classList.remove("hidden");
-fileName.innerText="> "+file.name;
 
-const res=await fetch(file.download_url);
-const txt=await res.text();
+viewer.classList.add("active");
 
-currentText=txt;
+fname.innerText="> "+file.name;
 
-fileContent.className="language-"+detectLanguage(file.name);
-fileContent.textContent=txt;
+const r=await fetch(file.download_url);
+current=await r.text();
 
-Prism.highlightElement(fileContent);
+content.className="language-"+lang(file.name);
+content.textContent=current;
+
+Prism.highlightElement(content);
 }
 
-/* Close */
 document.getElementById("close-viewer")
-.onclick=()=>viewer.classList.add("hidden");
+.onclick=()=>viewer.classList.remove("active");
 
-/* Copy */
+/* COPY */
 document.getElementById("copy-file")
 .onclick=async()=>{
-await navigator.clipboard.writeText(currentText);
-const btn=document.getElementById("copy-file");
-btn.innerText="✅ Copied!";
-setTimeout(()=>btn.innerText="📋 Copy",1500);
+await navigator.clipboard.writeText(current);
+const b=document.getElementById("copy-file");
+b.innerText="✅ Copied!";
+setTimeout(()=>b.innerText="📋 Copy",1500);
+};
+
+/* SAFETY */
+window.onload=()=>{
+viewer.classList.remove("active");
 };
 
 </script>
