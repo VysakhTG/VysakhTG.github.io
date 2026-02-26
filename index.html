@@ -88,6 +88,42 @@
             color: rgba(255,255,255,0.4);
             margin-top: 20px;
         }
+        /* Floating animation */
+.profile-card {
+    animation: float 6s ease-in-out infinite;
+    transition: transform 0.2s;
+}
+
+@keyframes float {
+    0%,100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+/* Neon glow */
+.profile-card:hover {
+    box-shadow:
+        0 0 20px rgba(0,242,255,0.4),
+        0 0 60px rgba(0,242,255,0.2);
+}
+
+/* Scan lines */
+body::after {
+    content:"";
+    position:fixed;
+    inset:0;
+    background: repeating-linear-gradient(
+        transparent,
+        transparent 2px,
+        rgba(255,255,255,0.03) 3px
+    );
+    pointer-events:none;
+}
+
+/* Secret Mode */
+.secret {
+    border-color:#ff0055 !important;
+    box-shadow:0 0 40px #ff0055;
+}
 
     </style>
 </head>
@@ -111,23 +147,67 @@
     </div>
 
     <script>
-        // Fun Glitch Effect for BCA vibe
-        const name = document.getElementById('name');
-        const chars = "VYSAKH/ヴイサク";
-        
-        name.onmouseover = () => {
-            let iteration = 0;
-            const interval = setInterval(() => {
-                name.innerText = name.innerText.split("")
-                    .map((char, index) => {
-                        if(index < iteration) return chars[index];
-                        return String.fromCharCode(65 + Math.floor(Math.random() * 26))
-                    }).join("");
-                
-                if(iteration >= chars.length) clearInterval(interval);
-                iteration += 1 / 3;
-            }, 30);
-        }
-    </script>
+const name = document.getElementById('name');
+const card = document.querySelector('.profile-card');
+
+const chars = "VYSAKH/ヴイサク";
+
+/* ===== GLITCH ===== */
+name.onmouseover = () => {
+    let iteration = 0;
+
+    const interval = setInterval(() => {
+        name.innerText = name.innerText
+        .split("")
+        .map((char, index) => {
+            if(index < iteration) return chars[index];
+            return String.fromCharCode(
+                65 + Math.floor(Math.random()*26)
+            );
+        }).join("");
+
+        if(iteration >= chars.length)
+            clearInterval(interval);
+
+        iteration += 1/3;
+    },30);
+};
+
+
+/* ===== PARALLAX ===== */
+document.addEventListener("mousemove",(e)=>{
+    const x = (window.innerWidth/2 - e.pageX)/30;
+    const y = (window.innerHeight/2 - e.pageY)/30;
+
+    card.style.transform =
+        `rotateY(${x}deg) rotateX(${y}deg)`;
+});
+
+
+/* ===== TYPEWRITER ===== */
+const line = document.querySelector(".code-line");
+const text = "> initializing developer...";
+let i = 0;
+line.innerText="";
+
+function type(){
+    if(i < text.length){
+        line.innerText += text.charAt(i);
+        i++;
+        setTimeout(type,40);
+    }
+}
+type();
+
+
+/* ===== SECRET ACCESS MODE ===== */
+document.addEventListener("keydown",(e)=>{
+    if(e.key === "/"){
+        card.classList.toggle("secret");
+
+        alert("ACCESS GRANTED\nDeveloper Mode Enabled");
+    }
+});
+</script>
 </body>
 </html>
